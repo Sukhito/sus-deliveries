@@ -1,0 +1,46 @@
+<button class="btn btn-primary" ui-sref="deliveries">Kembali</button>
+{{delivery._supplier.name}}
+{{delivery.date|date}}
+
+<table class="table table-nonfluid">
+    <thead>
+        <tr>
+            <td>kuantitas</td>
+            <td>barang</td>
+            <td>gross</td>
+            <td>kalkulasi</td>
+            <td>net</td>
+            <td>jumlah</td>
+        </tr>
+    </thead>
+    <tr ng-repeat="deliveryItem in delivery.items" ng-click="selectItem(deliveryItem)">
+        <td>
+            {{deliveryItem.qty}} {{deliveryItem.unit}}
+        </td>
+        <td>
+            {{deliveryItem._item.name}}
+        </td>
+        <td>
+            {{deliveryItem.gross}}
+        </td>
+        <td>
+            {{printCalc(deliveryItem.calc)}}
+        </td>
+        <td>
+            {{deliveryItem.net|number: '2'}}
+        </td>
+        <td>
+            {{deliveryItem.lineTotal|number:'2'}}
+        </td>
+    </tr>
+    <tfoot>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Jumlah Nota</td>
+            <td>{{delivery.total|currency:'Rp '}}</td>
+        </tr>
+    </tfoot>
+</table>

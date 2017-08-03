@@ -1,0 +1,72 @@
+<table class="table table-nonfluid">
+    <tr>
+        <td>
+            <button class="btn btn-primary btn-xs" ui-sref="deliveries">Back</button>
+        </td>
+        <td>
+            <input type="text" 
+                   ng-model="delivery._supplier" 
+                   uib-typeahead="supplier as supplier.name for supplier in suppliers |filter:$viewValue|limitTo:8"
+                   placeholder="Supplier">
+        </td>
+        <td>
+            <input type="date" ng-model="delivery.date" tabindex="-1">
+        </td>
+        <td><input type="text" placeholder="Tambah Barang" 
+        ng-model="selected" 
+        uib-typeahead="sellingItem as sellingItem.name for sellingItem in sellingItems | filter:$viewValue|limitTo:8" 
+        typeahead-on-select="onSelectItem($item, $model, $label)"></td>
+        <td>
+            <button class="btn btn-success btn-xs" ng-click="save()">Save</button>
+        </td>
+    </tr>
+</table>
+
+
+
+<table class="table table-nonfluid">
+    <tr ng-repeat="deliveryItem in delivery.items">
+        <td>
+            {{deliveryItem._item.name}}
+        </td>
+        <td>
+            <input type="number" 
+                   ng-model="deliveryItem.qty" 
+                   style="width:50px">
+            <input type="text" 
+                   ng-model="deliveryItem.unit"
+                   style="width:50px">
+        </td>
+        <td>
+            <input type="number" 
+                   ng-model="deliveryItem.gross" 
+                   ng-change="">
+        </td>
+        <td>
+            <button ng-click="addCalculation(deliveryItem.calc)">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+            </button>
+            <span ng-repeat="deliveryItemCalc in deliveryItem.calc">
+                <input type="number" ng-model="deliveryItemCalc.nominal" style="width:60px">
+                <i class="fa fa-trash-o" aria-hidden="true" ng-click="removeCalculation(deliveryItem.calc,$index)"></i>
+                &nbsp;
+            </span>
+        </td>
+        <td>
+            {{deliveryItem.net|number : 2}}
+        </td>
+        <td>
+            {{deliveryItem.lineTotal|number : 2}}
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Total</td>
+        <td>{{delivery.total|currency:'Rp '}}</td>
+    </tr>
+</table>
+
+

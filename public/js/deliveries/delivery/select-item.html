@@ -1,0 +1,75 @@
+<div class="modal-header">
+    <button class="btn btn-primary" type="button" ng-click="edit()" ng-hide="editMode">Edit</button>
+    <button class="btn btn-success" type="button" ng-click="save()" ng-show="editMode">Save</button>
+    <button class="btn btn-danger" type="button" ng-click="cancel()" ng-show="editMode">Cancel</button>
+</div>
+<div class="modal-body" id="modal-body">
+    <table class="table table-bordered">
+        <tr>
+            <td>Nama</td>
+            <td ng-hide="editMode">{{item.name}}</td>
+            <td ng-show="editMode"><input class="form-control" type="text" ng-model="item.name"></td>
+        </tr>
+        <tr>
+            <td>Isi</td>
+            <td ng-hide="editMode">{{item.dimension}}</td>
+            <td ng-show="editMode"><input class="form-control" type="text" ng-model="item.dimension"></td>
+        </tr>
+        <tr>
+            <td>modal</td>
+            <td ng-hide="editMode">{{item.modal}}</td>
+            <td ng-show="editMode"><input class="form-control" type="text" ng-model="item.modal"></td>
+        </tr>
+        <tr>
+            <td>keterangan modal</td>
+            <td ng-hide="editMode">
+                <ul style="list-style-type: none;margin: 0;padding: 0;">
+                    <li ng-repeat="ketmod in section(item.ketmodal)">
+                        {{ketmod}}
+                    </li>
+                </ul>
+            </td>
+            <td ng-show="editMode"><textarea class="form-control" rows="5" ng-model="item.ketmodal"></textarea></td>
+        </tr>
+        <tr>
+        	<td>Pokok</td>
+			<td>
+				<ul style="list-style-type: none;margin: 0;padding: 0;">
+					<li ng-repeat="delivery in deliveries">
+						{{delivery.date|date}} 
+						{{delivery.supplier[0].name}} :
+						{{delivery.items[0].gross}}
+						{{printCalc(delivery.items[0].calc)}} 
+						= {{delivery.items[0].net|number}}
+
+                        <strong>{{delivery.items[0].net * 1.03|number}}</strong>
+					</li>
+				</ul>
+			</td>
+        </tr>
+        <tr>
+            <td>Harga<button ng-show="editMode" class="btn btn-success btn-xs" ng-click="addPrice(item.prices)" tabindex="-1">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                </button></td>
+            <td ng-hide="editMode">
+                <ul>
+                    <li ng-repeat="price in item.prices">
+                        {{price.nominal}}/{{price.unit}}
+                    </li>
+                </ul>
+            </td>
+            <td ng-show="editMode">
+                <ul ng-repeat="price in item.prices"  style="list-style-type: none;margin: 0;padding: 0;">
+                    <li><input type="number" ng-model="price.nominal"><input type="text" ng-model="price.unit">                        <button class="btn btn-danger btn-xs" ng-click="deletePrice($index,item.prices)" tabindex="-1">
+                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        </button></li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>keterangan jual</td>
+            <td ng-hide="editMode">{{item.ketjual}}</td>
+            <td ng-show="editMode"><textarea class="form-control" rows="5" ng-model="item.ketjual"></textarea></td>
+        </tr>
+    </table>
+</div>

@@ -1,0 +1,17 @@
+<a class="btn btn-primary" href="http://192.168.1.4:8081/#/">home</a>
+<input ng-model="search._supplier.name" focus-if>
+<button class="btn btn-warning" ui-sref="new-delivery">Barang Masuk</button>
+<table class="table table-nonfluid">
+    <tr ng-repeat="delivery in deliveries|filter:search" ui-sref="delivery({deliveryId:delivery._id})">
+        <td>
+            {{delivery._supplier.name}}
+        </td>
+        <td>
+            {{delivery.date|date}}
+        </td>
+        <td>
+            {{delivery.total|currency:"Rp ":0}}
+        </td>
+    </tr>
+</table>
+
