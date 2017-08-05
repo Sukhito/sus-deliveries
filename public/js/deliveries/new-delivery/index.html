@@ -13,60 +13,66 @@
             <input type="date" ng-model="delivery.date" tabindex="-1">
         </td>
         <td><input type="text" placeholder="Tambah Barang" 
-        ng-model="selected" 
-        uib-typeahead="sellingItem as sellingItem.name for sellingItem in sellingItems | filter:$viewValue|limitTo:8" 
-        typeahead-on-select="onSelectItem($item, $model, $label)"></td>
+                   ng-model="selected" 
+                   uib-typeahead="sellingItem as sellingItem.name for sellingItem in sellingItems | filter:$viewValue|limitTo:8" 
+                   typeahead-on-select="onSelectItem($item, $model, $label)"></td>
         <td>
             <button class="btn btn-success btn-xs" ng-click="save()">Save</button>
         </td>
     </tr>
 </table>
 
-
-
-<table class="table table-nonfluid">
-    <tr ng-repeat="deliveryItem in delivery.items">
-        <td>
+<ul class="ul-table" ui-sortable ng-model="delivery.items" style="list-style-type: none;margin: 0;padding: 0;">
+    <li ng-repeat="deliveryItem in delivery.items">
+        <span>
             {{deliveryItem._item.name}}
-        </td>
-        <td>
+        </span>
+        <span>
             <input type="number" 
                    ng-model="deliveryItem.qty" 
                    style="width:50px">
             <input type="text" 
                    ng-model="deliveryItem.unit"
                    style="width:50px">
-        </td>
-        <td>
+        </span>
+        <span>
             <input type="number" 
                    ng-model="deliveryItem.gross" 
                    ng-change="">
-        </td>
-        <td>
+        </span>
+        <span>
             <button ng-click="addCalculation(deliveryItem.calc)">
                 <i class="fa fa-plus" aria-hidden="true"></i>
             </button>
-            <span ng-repeat="deliveryItemCalc in deliveryItem.calc">
+        </span>
+        <span>
+            <strong ng-repeat="deliveryItemCalc in deliveryItem.calc">
                 <input type="number" ng-model="deliveryItemCalc.nominal" style="width:60px">
                 <i class="fa fa-trash-o" aria-hidden="true" ng-click="removeCalculation(deliveryItem.calc,$index)"></i>
-                &nbsp;
-            </span>
-        </td>
-        <td>
+            &nbsp;
+            </strong>
+        </span>
+        <span>
             {{deliveryItem.net|number : 2}}
-        </td>
-        <td>
+        </span>
+        <span>
             {{deliveryItem.lineTotal|number : 2}}
-        </td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>Total</td>
-        <td>{{delivery.total|currency:'Rp '}}</td>
-    </tr>
-</table>
-
-
+        </span>
+        <span>
+            <button class="btn btn-danger" 
+                    ng-click="deleteItem($index)" 
+                    tabindex="-1">
+                <i class="fa fa-trash-o" aria-hidden="true"></i>
+            </button>
+        </span>
+    </li>
+    <li>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span>
+            Total {{delivery.total|currency:'Rp '}}
+        </span>
+    </li>
+</ul>

@@ -1,0 +1,18 @@
+.table-nonfluid {
+    width: auto !important;
+}
+
+
+.ul-table{
+     display:table; 
+     width:100%; 
+     padding:0;
+}
+
+.ul-table li{
+    display:table-row;
+}
+
+.ul-table li span{
+    display:table-cell; text-align:left;
+}

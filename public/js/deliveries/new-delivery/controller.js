@@ -41,6 +41,10 @@ app.controller('DeliveryNewCtrl',function($scope,DeliveryService,$state){
         $scope.selected = "";
     }
     
+    $scope.deleteItem = function(index){
+        $scope.delivery.items.splice(index, 1);
+    }
+    
     $scope.addCalculation = function(itemCalc){
         itemCalc.push({nominal : 0});
     }
